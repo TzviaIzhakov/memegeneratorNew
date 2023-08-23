@@ -36,42 +36,43 @@ function changeFont(dxSize) {
   renderMeme();
 }
 
-function drawText(elInput) {
-  gCountChar++;
-  let mesureWidthInput = gCtx.measureText(elInput.value).width;
-  if (mesureWidthInput + 100 >= gElCanvas.width) {
-    setLineTxt(`${elInput.value}\n`);
-    // gContinuedline = elInput.value.substring(gCountChar);
-    // console.log(gContinuedline, 'gContinuedline');
-  } else {
-    setLineTxt(elInput.value);
-  }
-  renderMeme();
-}
 // function drawText(elInput) {
-//   const maxTextWidth = gElCanvas.width - 100; // Adjust the threshold as needed
-//   const text = elInput.value;
-//   const words = text.split(' ');
-//   let wrappedWords = [];
-
-//   // Calculate which words exceed the canvas width
-//   for (let i = 0; i < words.length; i++) {
-//     const lineText = wrappedWords.join(' ');
-//     const testLine = lineText + (lineText ? ' ' : '') + words[i];
-//     const testWidth = gCtx.measureText(testLine).width;
-
-//     if (testWidth > maxTextWidth) {
-//       wrappedWords.push('\n', words[i]);
-//     } else {
-//       wrappedWords.push(words[i]);
-//     }
+//   gCountChar++;
+//   let mesureWidthInput = gCtx.measureText(elInput.value).width;
+//   if (mesureWidthInput + 100 >= gElCanvas.width) {
+//     elInput.value = `${elInput.value}\n`;
+//     setLineTxt(`${elInput.value}`);
+//     // gContinuedline = elInput.value.substring(gCountChar);
+//     // console.log(gContinuedline, 'gContinuedline');
+//   } else {
+//     setLineTxt(elInput.value);
 //   }
-
-//   // Update the line text with wrapped words
-//   setLineTxt(wrappedWords.join(' '));
-
 //   renderMeme();
 // }
+function drawText(elInput) {
+  const maxTextWidth = gElCanvas.width - 100; // Adjust the threshold as needed
+  const words = elInput.value.split(' ');
+  let lines = [];
+  let currentLine = '';
+
+  for (const word of words) {
+    const testLine = currentLine ? currentLine + ' ' + word : word;
+    const testWidth = gCtx.measureText(testLine).width;
+
+    if (testWidth <= maxTextWidth) {
+      currentLine = testLine;
+    } else {
+      lines.push(currentLine);
+      currentLine = word;
+    }
+  }
+
+  lines.push(currentLine);
+  const wrappedText = lines.join('\n');
+  setLineTxt(wrappedText);
+
+  renderMeme();
+}
 
 function downloadCanvas(elLink) {
   const dataUrl = gElCanvas.toDataURL();
@@ -172,7 +173,6 @@ function drawWrappedTextWithBorder(context, text, x, y, maxWidth) {
   for (let i = 0; i < words.length; i++) {
     const testLine = line + words[i] + ' ';
     const testWidth = context.measureText(testLine).width;
-
     if (testWidth > maxWidth && i > 0) {
       context.strokeText(line, x, y);
       context.fillText(line, x, y);
@@ -189,12 +189,35 @@ function drawWrappedTextWithBorder(context, text, x, y, maxWidth) {
 
 function onAddLine() {
   const elInput = document.querySelector('.txt');
+  elInput.value = '';
   addLine(elInput.value, 'black');
   drawText(elInput);
   renderMeme();
 }
 
 function onSwitchLine() {
+  const elInput = document.querySelector('.txt');
+  elInput.value = '';
   switchLine();
   renderMeme();
+}
+
+function onClickedLine(ev) {
+  const { offsetX, offsetY } = ev;
+  const clickedLine = getMeme().lines.find((line) => {
+    console.log(offsetX, offsetY);
+    const textWidth = gCtx.measureText(line.txt).width;
+    const hightFrame =
+      textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size;
+    const s =
+      offsetX >= line.x - 5 &&
+      offsetX <= line.x + textWidth &&
+      offsetY >= line.y - line.size &&
+      offsetY <= hightFrame + line.y;
+    return s;
+  });
+
+  if (clickedLine) {
+    console.log('clicked');
+  }
 }
