@@ -7,12 +7,21 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body onload="onInit()">
-    <canvas width="1050" height="900"> </canvas>
-    <input type="text" oninput="drawText(this,event)" class="txt" />
-    <input type="color" class="shape-color" onchange="getColor()" />
-    <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
-    <img src="meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)" />
+    <section class="gallery"></section>
 
-    <script src="js/main.js"></script>
+    <section class="meme-editor">
+      <canvas width="1050" height="900" onclick="renderMeme()"> </canvas>
+      <input type="text" oninput="drawText(this)" class="txt" />
+      <!-- <input type="color" class="shape-color" onchange="getColor()" />
+      <a href="#" onclick="downloadCanvas(this)" download="file-name"
+        >Download</a
+      > -->
+      <!-- <img src="meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)" /> -->
+    </section>
+
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/controllers/meme.controller.js"></script>
+    <script src="js/controllers/gallery.controller.js"></script>
   </body>
 </html>
