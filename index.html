@@ -8,7 +8,9 @@
   </head>
   <body onload="onInit()">
     <canvas width="1050" height="900"> </canvas>
-    <input type="text" oninput="drawText(this,event)" />
+    <input type="text" oninput="drawText(this,event)" class="txt" />
+    <input type="color" class="shape-color" onchange="getColor()" />
+    <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
     <img src="meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)" />
 
     <script src="js/main.js"></script>

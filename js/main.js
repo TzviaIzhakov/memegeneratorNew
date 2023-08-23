@@ -26,13 +26,30 @@ function drawText(elInput) {
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
 
   gCtx.lineWidth = 2;
-  gCtx.fillStyle = 'black';
   gCtx.font = '40px Arial';
   const str = elInput.value;
 
   if (gCurrentImg) {
     gCtx.drawImage(gCurrentImg, 0, 0, gElCanvas.width, gElCanvas.height);
-    gCtx.fillStyle = 'white';
+    gCtx.fillStyle = getColor();
     gCtx.fillText(str, 100, 100);
   }
+}
+
+function getColor() {
+  const elInput = document.querySelector('.txt');
+  const color = document.querySelector('.shape-color');
+  console.log(color.value);
+  gCtx.fillStyle = color.value;
+  gCtx.fillText(elInput.value, 100, 100);
+  return color.value;
+}
+
+function downloadCanvas(elLink) {
+  const dataUrl = gElCanvas.toDataURL();
+  console.log('dataUrl', dataUrl);
+
+  elLink.href = dataUrl;
+  // Set a name for the downloaded file
+  elLink.download = 'my-meme';
 }
