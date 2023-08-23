@@ -19,9 +19,10 @@ function renderMeme() {
 
   elImg.onload = () => {
     gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height);
-    gCtx.fillStyle = getColorMeme();
-    gCtx.font = `${getFontSize()}px Arial`;
-    gCtx.fillText(getLineTxt(), 100, 100);
+    // gCtx.fillStyle = getColorMeme();
+    // gCtx.font = `${getFontSize()}px Arial`;
+    // gCtx.fillText(getLineTxt(), 100, 100);
+    renderLines();
   };
 }
 
@@ -48,4 +49,12 @@ function downloadCanvas(elLink) {
   elLink.href = dataUrl;
   // Set a name for the downloaded file
   elLink.download = 'my-meme';
+}
+function renderLines() {
+  const meme = getMeme();
+  meme.lines.forEach((line) => {
+    gCtx.fillStyle = line.color;
+    gCtx.font = `${line.size}px Arial`;
+    gCtx.fillText(line.txt, 100, 100);
+  });
 }

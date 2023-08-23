@@ -1,7 +1,7 @@
 'use strict';
 let gImgs = [
   { id: 1, url: 'img/1.jpg', keywords: ['funny', 'donald'] },
-  { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog', 'love'] },
+  { id: 2, url: 'img/2.jpg', keywords: ['dog', 'love'] },
 ];
 
 let gMeme = {
@@ -10,8 +10,13 @@ let gMeme = {
   lines: [
     {
       txt: 'I sometimes eat Falafel',
-      size: 20,
-      color: 'black',
+      size: 50,
+      color: 'pink',
+    },
+    {
+      txt: 'I love to eat Hamburger',
+      size: 40,
+      color: 'red',
     },
   ],
 };
