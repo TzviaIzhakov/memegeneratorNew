@@ -10,12 +10,14 @@
     <section class="gallery"></section>
 
     <section class="meme-editor">
-      <canvas width="1050" height="900" onclick="renderMeme()"> </canvas>
+      <canvas width="1050" height="900"></canvas>
       <input type="text" oninput="drawText(this)" class="txt" />
-      <!-- <input type="color" class="shape-color" onchange="getColor()" />
+      <input type="color" class="shape-color" onchange="getColor()" />
       <a href="#" onclick="downloadCanvas(this)" download="file-name"
         >Download</a
-      > -->
+      >
+      <button onclick="changeFont(10)">increase font</button>
+      <button onclick="changeFont(-10)">decrease font</button>
       <!-- <img src="meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)" /> -->
     </section>
 

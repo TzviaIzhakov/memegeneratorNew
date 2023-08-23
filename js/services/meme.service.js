@@ -11,7 +11,7 @@ let gMeme = {
     {
       txt: 'I sometimes eat Falafel',
       size: 20,
-      color: 'red',
+      color: 'black',
     },
   ],
 };
@@ -26,8 +26,34 @@ function getMemeUrl() {
   return memeUrl.url;
 }
 
+function getLineTxt() {
+  return gMeme.lines[0].txt;
+}
+
 function setLineTxt(newLine) {
   gMeme.lines[0].txt = newLine;
+}
+
+function getColorMeme() {
+  return gMeme.lines[0].color;
+}
+
+function setColor(color) {
+  gMeme.lines[0].color = color;
+}
+
+function getFontSize() {
+  return gMeme.lines[0].size;
+}
+
+function setFontSize(fontSize) {
+  let sizeMeme = gMeme.lines[0].size;
+  console.log(sizeMeme, 'before');
+  if (fontSize === -10 && sizeMeme === 10) {
+    return;
+  }
+  gMeme.lines[0].size += fontSize;
+  console.log(sizeMeme, 'after');
 }
 
 function setImg(id) {
