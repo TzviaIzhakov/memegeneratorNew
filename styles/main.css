@@ -1,7 +1,20 @@
-canvas {
-  border: 1px solid gray;
-}
+/* SETUP */
+@import url('setup/vars.css');
+@import url('setup/typography.css');
 
-.hidden {
-  display: none;
-}
+/* BASICS  */
+@import url('basics/base.css');
+@import url('basics/layout.css');
+@import url('basics/helpers.css');
+
+/* COMPONENTS */
+/* @import url("components/logo.css"); */
+@import url('components/main-header.css');
+@import url('components/user-tool-gallery.css');
+/* @import url("components/main-container.css"); */
+/* @import url("components/card.css"); */
+/* @import url("components/newsletter.css");*/
+/* @import url("components/main-screen.css"); */
+
+/* MEDIA QUERIES */
+@import url('setup/mq.css');

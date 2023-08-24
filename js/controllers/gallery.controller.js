@@ -15,8 +15,8 @@ function renderGallery() {
 function onImgSelect(id) {
   setImg(id);
   renderMeme();
-  const gallery = document.querySelector('.gallery');
-  const memeEditor = document.querySelector('.meme-editor');
-  gallery.classList.add('hidden');
-  memeEditor.classList.remove('hidden');
+  const elGallery = document.querySelector('.gallery-user-tool');
+  const elMemeEditor = document.querySelector('.meme-editor');
+  elGallery.classList.add('hidden');
+  elMemeEditor.classList.remove('hidden');
 }

@@ -4,34 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
 
-  <body onload="onInit()">
-    <header class="main-header">
-      <nav class="main-nav-container">
+  <body onload="onInit()" class="main-layout">
+    <header class="main-header main-layout full">
+      <nav
+        class="main-nav-container grid space-between align-center flow-column"
+      >
         <div class="logo">LOGO</div>
-        <ul class="main-nav">
+        <ul class="main-nav clean-list grid flow-column">
           <li><a href="#">Gallery</a></li>
           <li><a href="#">About</a></li>
         </ul>
       </nav>
     </header>
 
-    <section class="user-tool">
-      <input type="text" class="serach-meme" />
-      <div>
-        <span>Funny</span>
-        <span>Animal</span>
-        <span>Men</span>
-        <span>Women</span>
-        <span>Comic</span>
-        <span>Smile</span>
-        <button class="btn-more-list">More</button>
-      </div>
-    </section>
+    <section class="gallery-user-tool">
+      <section class="user-tool flex space-between align-center">
+        <input type="text" class="search-meme" />
+        <div class="memes-tag">
+          <span>Funny</span>
+          <span>Animal</span>
+          <span>Men</span>
+          <span>Women</span>
+          <span>Comic</span>
+          <span>Smile</span>
+        </div>
+        <a class="btn-more-list">More</a>
+      </section>
 
-    <section class="gallery"></section>
+      <section class="gallery"></section>
+    </section>
 
     <section class="meme-editor hidden">
       <canvas width="1050" height="900" onclick="onClickedLine(event)"></canvas>

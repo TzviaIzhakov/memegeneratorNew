@@ -1,0 +1,33 @@
+.main-header {
+  background: linear-gradient(
+    -86deg,
+    var(--clrSecondary) 0%,
+    var(--clrThird) 100%
+  );
+  border-radius: 37px;
+  margin: 1rem;
+  height: var(--headerHeight);
+}
+
+.main-header .main-nav {
+  gap: 100px;
+}
+
+.main-header .main-nav a {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  min-width: var(--linkWidth);
+  min-height: var(--linkHeight);
+
+  transition: box-shadow 0.2s;
+  will-change: box-shadow;
+}
+
+.main-header .main-nav a:hover {
+  color: var(--clrSecondary);
+  /* box-shadow: 0 3px 6px 1px var(--clrPrimary); */
+  background-color: var(--clrPrimary);
+  border-radius: 20px;
+}

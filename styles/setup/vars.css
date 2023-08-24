@@ -1,0 +1,14 @@
+/* PALLETE */
+
+:root {
+  --clrPrimary3: #22252c;
+  --clrPrimary2: #292929;
+  --clrPrimary1: #383b42;
+  --clrPrimary: #ffffff;
+  --clrPrimary-1: #fefefe;
+  --clrSecondary: #33be6d;
+  --clrThird: #0c98b9;
+  --headerHeight: 73px;
+  --linkHeight: 40px;
+  --linkWidth: 116px;
+}
