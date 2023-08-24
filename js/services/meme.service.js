@@ -144,7 +144,6 @@ function setCoords(idx, x, y) {
 function setLineDrag(boolean) {
   gLineDrag = boolean;
   gMeme.selectedLineIdx = selectedLineIdx;
-  console.log(selectedLineIdx);
 }
 
 function getLineDrag() {
@@ -158,4 +157,14 @@ function moveLine(dx, dy) {
 
 function getLine() {
   return gMeme.lines[gMeme.selectedLineIdx];
+}
+
+function setSelectedLine(idx) {
+  gMeme.selectedLineIdx = idx;
+  selectedLineIdx = idx;
+  console.log(selectedLineIdx);
+}
+
+function getSelectedLine() {
+  return gMeme.selectedLineIdx;
 }

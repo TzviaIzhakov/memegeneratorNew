@@ -22,10 +22,7 @@ function addMouseListeners() {
   gElCanvas.addEventListener('mouseup', onUp);
 }
 function onDown(ev) {
-  // console.log('onDown')
-  // Get the ev pos from mouse or touch
   const pos = getEvPos(ev);
-  // console.log('pos', pos)
   if (!onClickedLine(ev)) {
     return;
   }
@@ -202,7 +199,6 @@ function renderLines() {
     // console.log(line.strokeColor);
     gCtx.lineWidth = 4;
     const font = line.font;
-    console.log('font', font);
     gCtx.font = `${line.size}px ${font}`;
     gCtx.strokeText(line.txt, line.x, line.y);
 
@@ -315,26 +311,36 @@ function onSwitchLine() {
 }
 
 function onClickedLine(ev) {
+  const meme = getMeme();
   const { offsetX, offsetY } = ev;
+
   const clickedLine = getMeme().lines.find((line, i) => {
     console.log(offsetX, offsetY);
-    const textWidth = gCtx.measureText(line.txt).width;
-    const hightFrame =
-      textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size;
-    const s =
-      offsetX >= line.x - 5 &&
-      offsetX <= line.x + textWidth &&
-      offsetY >= line.y - line.size &&
-      offsetY <= hightFrame + line.y;
-    if (s) {
-      getMeme().selectedLineIdx = i;
-      console.log(line, i);
+    // const textWidth = gCtx.measureText(line.txt).width;
+    // const hightFrame =
+    //   textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size;
+    // gCtx.strokeRect(20, line.y - 30, gElCanvas.width - 50, line.size + 5);
+    const selected =
+      offsetX >= 20 &&
+      offsetX <= 20 + gElCanvas.width - 50 &&
+      offsetY >= line.y - 30 &&
+      offsetY <= line.size + 5 + line.y;
+    console.log(line.y, 'line.y');
+    console.log(line.size, 'line.size');
+    // const s =
+    //   offsetX >= line.x - 5 &&
+    //   offsetX <= line.x + textWidth &&
+    //   offsetY >= line.y - line.size &&
+    //   offsetY <= hightFrame + line.y;
+    if (selected) {
+      setSelectedLine(i);
+      const elInput = document.querySelector('.txt');
+      elInput.value = meme.lines[getSelectedLine()].txt;
     }
-    return s;
+    return selected;
   });
 
   if (clickedLine) {
-    console.log('clicked');
     return true;
   }
   return false;
