@@ -88,6 +88,12 @@ function getColor() {
   renderMeme();
 }
 
+function getStrokeColor() {
+  const strokeColor = document.querySelector('.stroke-color');
+  setStrokeColor(strokeColor.value);
+  renderMeme();
+}
+
 function changeFont(dxSize) {
   setFontSize(dxSize);
   renderMeme();
@@ -184,7 +190,14 @@ function renderLines() {
   meme.lines.forEach((line, i) => {
     const textWidth = gCtx.measureText(line.txt).width;
     gCtx.fillStyle = line.color;
+    gCtx.strokeStyle = line.strokeColor;
+    console.log(line.color);
+    console.log(line.strokeColor);
+    // console.log(line.strokeColor);
+    gCtx.lineWidth = 4;
     gCtx.font = `${line.size}px Arial`;
+    gCtx.strokeText(line.txt, line.x, line.y);
+
     if (getLineDrag()) {
       if (i === 1) {
         moveLine(gDx, gDy);
@@ -199,8 +212,8 @@ function renderLines() {
     }
 
     if (i === meme.selectedLineIdx) {
-      console.log('i-if', i);
-      console.log('meme.selectedLineIdx-if', meme.selectedLineIdx);
+      // console.log('i-if', i);
+      // console.log('meme.selectedLineIdx-if', meme.selectedLineIdx);
       if (gAlingnment) {
         gCtx.textAlign = gAlingnment;
         if (gAlingnment === 'center') {
@@ -215,26 +228,18 @@ function renderLines() {
         }
       }
     } else {
-      console.log('i', i);
-      console.log('meme.selectedLineIdx', meme.selectedLineIdx);
+      // console.log('i', i);
+      // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
       gCtx.textAlign = 'start'; // Reset alignment for non-selected lines
       // gCtx.fillText(line.txt, line.x, line.y);
     }
 
-    // if (i === meme.selectedLineIdx) {
-    //   gCtx.strokeStyle = 'white';
-    //   gCtx.lineWidth = 4;
-    //   gCtx.textAlign = gAlingnment;
-    //   console.log(gAlingnment);
-
-    //   // gCtx.fillText(line.txt, line.x, line.y);
-
-    //   const hightFrame =
-    //     textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size + 5;
-
-    //   gCtx.strokeRect(line.x - 5, line.y - line.size, textWidth, hightFrame);
-    // }
-
+    if (i === meme.selectedLineIdx) {
+      gCtx.strokeStyle = 'white';
+      gCtx.strokeRect(20, line.y - 30, gElCanvas.width - 50, line.size + 5);
+      // const hightFrame =
+      //   textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size + 5;
+    }
     // Draw the text, handling wrapping if needed
     // const words = line.txt.split(' ');
     // console.log(words);
@@ -289,7 +294,7 @@ function renderLines() {
 function onAddLine() {
   const elInput = document.querySelector('.txt');
   elInput.value = '';
-  addLine(elInput.value, 'black');
+  addLine(elInput.value, 'black', 'white');
   drawText(elInput);
   renderMeme();
 }

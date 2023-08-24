@@ -75,10 +75,17 @@
 
         <div class="text-color-impact">
           <select name="" id="">
-            Impact
-            <option value=""></option>
+            <option value="">Impact</option>
+            <option value="sans-serif">Sans-Serif</option>
+            <option value="monospace">Monospace</option>
           </select>
-          <input type="color" class="stroke-color btn-user" />
+
+          <input
+            type="color"
+            class="stroke-color btn-user"
+            onchange="getStrokeColor()"
+          />
+
           <input
             type="color"
             class="shape-color btn-user"

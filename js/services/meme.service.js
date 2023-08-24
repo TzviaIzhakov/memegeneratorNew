@@ -36,8 +36,8 @@ function getMeme() {
   return gMeme;
 }
 
-function addLine(txt, color) {
-  const newLine = _createLine(txt, color);
+function addLine(txt, color, strokeColor) {
+  const newLine = _createLine(txt, color, strokeColor);
   gMeme.lines.push(newLine);
   gMeme.selectedLineIdx = gMeme.lines.length - 1;
   selectedLineIdx = gMeme.selectedLineIdx;
@@ -45,13 +45,20 @@ function addLine(txt, color) {
   // _saveBooks();
 }
 
-function _createLine(txt, color = 'black', x = 50, y = 50) {
+function _createLine(
+  txt,
+  color = 'black',
+  strokeColor = 'white',
+  x = 50,
+  y = 50
+) {
   return {
     txt,
     size: 30,
     color,
     x,
     y,
+    strokeColor,
   };
 }
 
@@ -93,6 +100,10 @@ function setColor(color) {
   gMeme.lines[selectedLineIdx].color = color;
 }
 
+function setStrokeColor(strokeColor) {
+  gMeme.lines[selectedLineIdx].strokeColor = strokeColor;
+}
+
 function getFontSize() {
   return gMeme.lines[selectedLineIdx].size;
 }
@@ -116,7 +127,7 @@ function setImg(id) {
   gMeme.selectedImgId = id;
   gMeme.lines = [];
   gMeme.selectedLineIdx = 0;
-  gMeme.lines[selectedLineIdx] = _createLine('', 'black');
+  gMeme.lines[selectedLineIdx] = _createLine('', 'black', 'white');
 }
 
 function setCoords(idx, x, y) {
