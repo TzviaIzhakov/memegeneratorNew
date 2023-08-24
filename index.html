@@ -6,18 +6,67 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css" />
   </head>
+
   <body onload="onInit()">
+    <header class="main-header">
+      <nav class="main-nav-container">
+        <div class="logo">LOGO</div>
+        <ul class="main-nav">
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="user-tool">
+      <input type="text" class="serach-meme" />
+      <div>
+        <span>Funny</span>
+        <span>Animal</span>
+        <span>Men</span>
+        <span>Women</span>
+        <span>Comic</span>
+        <span>Smile</span>
+        <button class="btn-more-list">More</button>
+      </div>
+    </section>
+
     <section class="gallery"></section>
 
     <section class="meme-editor hidden">
-      <input type="text" oninput="drawText(this)" class="txt" />
       <canvas width="1050" height="900" onclick="onClickedLine(event)"></canvas>
-      <input type="color" class="shape-color" onchange="getColor()" />
-      <a onclick="downloadCanvas(this)" download="file-name">Download</a>
-      <button onclick="changeFont(10)">increase font</button>
-      <button onclick="changeFont(-10)">decrease font</button>
-      <button onclick="onAddLine()">Add line</button>
-      <button onclick="onSwitchLine()">Switch line</button>
+
+      <div class="text-switch-delete-add">
+        <input type="text" oninput="drawText(this)" class="txt" />
+        <button onclick="onSwitchLine()" class="switch-btn">Switch line</button>
+        <button onclick="onAddLine()" class="add-line-btn">Add line</button>
+        <button class="delete-line">Delete</button>
+      </div>
+
+      <div class="text-font-align">
+        <button onclick="changeFont(10)">increase font</button>
+        <button onclick="changeFont(-10)">decrease font</button>
+      </div>
+
+      <div class="text-color-impact">
+        <select name="" id="">
+          Impact
+          <option value=""></option>
+        </select>
+        <input type="color" class="stroke-color" />
+        <input type="color" class="shape-color" onchange="getColor()" />
+      </div>
+
+      <div class="add-stickers">
+        <button class="sticker"></button>
+        <button class="sticker"></button>
+        <button class="sticker"></button>
+        <button class="sticker"></button>
+      </div>
+
+      <div class="meme-share-download">
+        <a onclick="downloadCanvas(this)" download="file-name">Download</a>
+      </div>
     </section>
 
     <!-- <script src="js/main.js"></script> -->

@@ -1,7 +1,23 @@
 'use strict';
 let gImgs = [
-  { id: 1, url: 'img/1.jpg', keywords: ['funny', 'donald'] },
-  { id: 2, url: 'img/2.jpg', keywords: ['dog', 'love'] },
+  { id: 1, url: 'img/1.jpg', keywords: ['funny', 'men'] },
+  { id: 2, url: 'img/2.jpg', keywords: ['animal', 'smile'] },
+  { id: 3, url: 'img/3.jpg', keywords: ['animal'] },
+  { id: 4, url: 'img/4.jpg', keywords: ['animal'] },
+  { id: 5, url: 'img/5.jpg', keywords: ['funny,smile'] },
+  { id: 6, url: 'img/6.jpg', keywords: ['men,funny'] },
+  { id: 7, url: 'img/7.jpg', keywords: ['funny'] },
+  { id: 8, url: 'img/8.jpg', keywords: ['smile', 'funny', 'comic'] },
+  { id: 9, url: 'img/9.jpg', keywords: ['smile', 'funny', 'comic'] },
+  { id: 10, url: 'img/10.jpg', keywords: ['smile', 'funny', 'men'] },
+  { id: 11, url: 'img/11.jpg', keywords: ['funny', 'men'] },
+  { id: 12, url: 'img/12.jpg', keywords: ['funny', 'men', 'comic'] },
+  { id: 13, url: 'img/13.jpg', keywords: ['funny', 'men', 'comic', 'smile'] },
+  { id: 14, url: 'img/14.jpg', keywords: ['funny', 'men', 'comic'] },
+  { id: 15, url: 'img/15.jpg', keywords: ['funny', 'men', 'smile'] },
+  { id: 16, url: 'img/16.jpg', keywords: ['funny', 'men', 'smile'] },
+  { id: 17, url: 'img/17.jpg', keywords: ['men'] },
+  { id: 18, url: 'img/18.jpg', keywords: ['funny', 'comic'] },
 ];
 
 let gMeme = {
@@ -37,6 +53,10 @@ function _createLine(txt, color = 'black', x = 100, y = 100) {
     x,
     y,
   };
+}
+
+function getImgs() {
+  return gImgs;
 }
 
 function switchLine() {
