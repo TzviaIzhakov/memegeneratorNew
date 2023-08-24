@@ -13,6 +13,8 @@ let gMeme = {
   ],
 };
 
+let gLineDrag;
+
 var selectedLineIdx = gMeme.selectedLineIdx;
 function getMeme() {
   return gMeme;
@@ -93,4 +95,19 @@ function setImg(id) {
 function setCoords(idx, x, y) {
   gMeme.lines[idx].x = x;
   gMeme.lines[idx].y = y;
+}
+
+function setLineDrag(boolean) {
+  gLineDrag = boolean;
+  gMeme.selectedLineIdx = selectedLineIdx;
+  console.log(selectedLineIdx);
+}
+
+function getLineDrag() {
+  return gLineDrag;
+}
+
+function moveLine(dx, dy) {
+  gMeme.lines[selectedLineIdx].x += dx;
+  gMeme.lines[selectedLineIdx].y += dy;
 }

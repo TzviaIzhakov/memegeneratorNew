@@ -2,12 +2,68 @@
 
 let gElCanvas;
 let gCtx;
-let gCountChar = 0;
-let gContinuedline;
+// let gCountChar = 0;
+// let gContinuedline;
+let gisClickedUp;
+let gStartPos;
+let gDx;
+let gDy;
 function onInit() {
   console.log('Hi');
   gElCanvas = document.querySelector('canvas');
   gCtx = gElCanvas.getContext('2d');
+  addMouseListeners();
+}
+
+function addMouseListeners() {
+  gElCanvas.addEventListener('mousedown', onDown);
+  gElCanvas.addEventListener('mousemove', onMove);
+  gElCanvas.addEventListener('mouseup', onUp);
+}
+function onDown(ev) {
+  // console.log('onDown')
+  // Get the ev pos from mouse or touch
+  const pos = getEvPos(ev);
+  // console.log('pos', pos)
+  if (!onClickedLine(ev)) {
+    return;
+  }
+
+  setLineDrag(true);
+  //Save the pos we start from
+  gStartPos = pos;
+  document.body.style.cursor = 'grabbing';
+}
+
+function onMove(ev) {
+  // console.log('onMove')
+  // const { isDrag } = getCircle();
+  if (!getLineDrag()) return;
+  console.log('Moving the line');
+
+  const pos = getEvPos(ev);
+  // Calc the delta, the diff we moved
+  gDx = pos.x - gStartPos.x;
+  gDy = pos.y - gStartPos.y;
+  moveLine(gDx, gDy);
+  // Save the last pos, we remember where we`ve been and move accordingly
+  gStartPos = pos;
+  // The canvas is render again after every move
+  renderMeme();
+}
+
+function onUp() {
+  // console.log('onUp')
+  setLineDrag(false);
+  document.body.style.cursor = 'grab';
+}
+
+function getEvPos(ev) {
+  let pos = {
+    x: ev.offsetX,
+    y: ev.offsetY,
+  };
+  return pos;
 }
 
 function renderMeme() {
@@ -36,43 +92,44 @@ function changeFont(dxSize) {
   renderMeme();
 }
 
-// function drawText(elInput) {
-//   gCountChar++;
-//   let mesureWidthInput = gCtx.measureText(elInput.value).width;
-//   if (mesureWidthInput + 100 >= gElCanvas.width) {
-//     elInput.value = `${elInput.value}\n`;
-//     setLineTxt(`${elInput.value}`);
-//     // gContinuedline = elInput.value.substring(gCountChar);
-//     // console.log(gContinuedline, 'gContinuedline');
-//   } else {
-//     setLineTxt(elInput.value);
-//   }
-//   renderMeme();
-// }
 function drawText(elInput) {
-  const maxTextWidth = gElCanvas.width - 100; // Adjust the threshold as needed
-  const words = elInput.value.split(' ');
-  let lines = [];
-  let currentLine = '';
-
-  for (const word of words) {
-    const testLine = currentLine ? currentLine + ' ' + word : word;
-    const testWidth = gCtx.measureText(testLine).width;
-
-    if (testWidth <= maxTextWidth) {
-      currentLine = testLine;
-    } else {
-      lines.push(currentLine);
-      currentLine = word;
-    }
+  // gCountChar++;
+  let mesureWidthInput = gCtx.measureText(elInput.value).width;
+  if (mesureWidthInput + 100 >= gElCanvas.width) {
+    elInput.value = `${elInput.value}\n`;
+    setLineTxt(`${elInput.value}`);
+    // gContinuedline = elInput.value.substring(gCountChar);
+    // console.log(gContinuedline, 'gContinuedline');
+  } else {
+    setLineTxt(elInput.value);
   }
-
-  lines.push(currentLine);
-  const wrappedText = lines.join('\n');
-  setLineTxt(wrappedText);
-
   renderMeme();
 }
+
+// function drawText(elInput) {
+//   const maxTextWidth = gElCanvas.width - 100; // Adjust the threshold as needed
+//   const words = elInput.value.split(' ');
+//   let lines = [];
+//   let currentLine = '';
+
+//   for (const word of words) {
+//     const testLine = currentLine ? currentLine + ' ' + word : word;
+//     const testWidth = gCtx.measureText(testLine).width;
+
+//     if (testWidth <= maxTextWidth) {
+//       currentLine = testLine;
+//     } else {
+//       lines.push(currentLine);
+//       currentLine = word;
+//     }
+//   }
+
+//   lines.push(currentLine);
+//   const wrappedText = lines.join('\n');
+//   setLineTxt(wrappedText);
+
+//   renderMeme();
+// }
 
 function downloadCanvas(elLink) {
   const dataUrl = gElCanvas.toDataURL();
@@ -119,22 +176,25 @@ function downloadCanvas(elLink) {
 // }
 function renderLines() {
   const meme = getMeme();
-  const elInput = document.querySelector('.txt');
 
   meme.lines.forEach((line, i) => {
     gCtx.fillStyle = line.color;
     gCtx.font = `${line.size}px Arial`;
-
-    if (i == 1) {
-      setCoords(i, 100, gElCanvas.height - 100);
+    if (getLineDrag()) {
+      if (i === 1) {
+        moveLine(gDx, gDy);
+      }
+    } else {
+      if (i === 1) {
+        setCoords(i, 100, gElCanvas.height - 100);
+      }
+      if (i >= 2) {
+        setCoords(i, 100, gElCanvas.height / 2 - 5);
+      }
     }
-    if (i >= 2) {
-      setCoords(i, 100, gElCanvas.height / 2 - 5);
-    }
-    // gCtx.fillText(line.txt, line.x, line.y);
 
     if (i === meme.selectedLineIdx) {
-      gCtx.strokeStyle = 'blue'; // Set the frame color
+      gCtx.strokeStyle = 'blue';
       gCtx.lineWidth = 2;
 
       const textWidth = gCtx.measureText(line.txt).width;
@@ -204,7 +264,7 @@ function onSwitchLine() {
 
 function onClickedLine(ev) {
   const { offsetX, offsetY } = ev;
-  const clickedLine = getMeme().lines.find((line) => {
+  const clickedLine = getMeme().lines.find((line, i) => {
     console.log(offsetX, offsetY);
     const textWidth = gCtx.measureText(line.txt).width;
     const hightFrame =
@@ -214,10 +274,20 @@ function onClickedLine(ev) {
       offsetX <= line.x + textWidth &&
       offsetY >= line.y - line.size &&
       offsetY <= hightFrame + line.y;
+    if (s) {
+      getMeme().selectedLineIdx = i;
+      console.log(line, i);
+    }
     return s;
   });
 
   if (clickedLine) {
     console.log('clicked');
+    return true;
   }
+  return false;
+}
+
+function onClickedUp() {
+  gisClickedUp = true;
 }
