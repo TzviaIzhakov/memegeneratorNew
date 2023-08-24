@@ -49,6 +49,7 @@ function _createLine(
   txt,
   color = 'black',
   strokeColor = 'white',
+  font = 'Arial',
   x = 50,
   y = 50
 ) {
@@ -56,9 +57,10 @@ function _createLine(
     txt,
     size: 30,
     color,
+    strokeColor,
+    font,
     x,
     y,
-    strokeColor,
   };
 }
 
@@ -104,6 +106,10 @@ function setStrokeColor(strokeColor) {
   gMeme.lines[selectedLineIdx].strokeColor = strokeColor;
 }
 
+function setFont(val) {
+  gMeme.lines[selectedLineIdx].font = val;
+}
+
 function getFontSize() {
   return gMeme.lines[selectedLineIdx].size;
 }
@@ -127,7 +133,7 @@ function setImg(id) {
   gMeme.selectedImgId = id;
   gMeme.lines = [];
   gMeme.selectedLineIdx = 0;
-  gMeme.lines[selectedLineIdx] = _createLine('', 'black', 'white');
+  gMeme.lines[selectedLineIdx] = _createLine('', 'black', 'white', 'Arial');
 }
 
 function setCoords(idx, x, y) {

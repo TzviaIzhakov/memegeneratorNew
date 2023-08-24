@@ -184,6 +184,12 @@ function onAlign(str) {
   renderMeme();
 }
 
+function onGetFont(val) {
+  console.log('val', val);
+  setFont(val);
+  renderMeme();
+}
+
 function renderLines() {
   const meme = getMeme();
 
@@ -191,11 +197,13 @@ function renderLines() {
     const textWidth = gCtx.measureText(line.txt).width;
     gCtx.fillStyle = line.color;
     gCtx.strokeStyle = line.strokeColor;
-    console.log(line.color);
-    console.log(line.strokeColor);
+    // console.log(line.color);
+    // console.log(line.strokeColor);
     // console.log(line.strokeColor);
     gCtx.lineWidth = 4;
-    gCtx.font = `${line.size}px Arial`;
+    const font = line.font;
+    console.log('font', font);
+    gCtx.font = `${line.size}px ${font}`;
     gCtx.strokeText(line.txt, line.x, line.y);
 
     if (getLineDrag()) {
