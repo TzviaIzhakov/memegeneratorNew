@@ -20,3 +20,10 @@ function onImgSelect(id) {
   elGallery.classList.add('hidden');
   elMemeEditor.classList.remove('hidden');
 }
+
+function onReturnGallery() {
+  const elGallery = document.querySelector('.gallery-user-tool');
+  const elMemeEditor = document.querySelector('.meme-editor');
+  elGallery.classList.remove('hidden');
+  elMemeEditor.classList.add('hidden');
+}
