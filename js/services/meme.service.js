@@ -45,7 +45,7 @@ function addLine(txt, color) {
   // _saveBooks();
 }
 
-function _createLine(txt, color = 'black', x = 100, y = 100) {
+function _createLine(txt, color = 'black', x = 50, y = 50) {
   return {
     txt,
     size: 30,
@@ -83,7 +83,6 @@ function getLineTxt() {
 
 function setLineTxt(newLine) {
   gMeme.lines[selectedLineIdx].txt = newLine;
-  console.log(newLine, 'newLine');
 }
 
 function getColorMeme() {
@@ -108,8 +107,16 @@ function setFontSize(fontSize) {
   console.log(sizeMeme, 'after');
 }
 
+// lines: [
+//   _createLine('I sometimes eat Falafel', 'black'),
+//   _createLine('I love to eat Hamburger', 'red'),
+// ],
+
 function setImg(id) {
   gMeme.selectedImgId = id;
+  gMeme.lines = [];
+  gMeme.selectedLineIdx = 0;
+  gMeme.lines[selectedLineIdx] = _createLine('', 'black');
 }
 
 function setCoords(idx, x, y) {
@@ -130,4 +137,8 @@ function getLineDrag() {
 function moveLine(dx, dy) {
   gMeme.lines[selectedLineIdx].x += dx;
   gMeme.lines[selectedLineIdx].y += dy;
+}
+
+function getLine() {
+  return gMeme.lines[gMeme.selectedLineIdx];
 }

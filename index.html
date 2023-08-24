@@ -38,38 +38,64 @@
     </section>
 
     <section class="meme-editor hidden">
-      <canvas width="1050" height="900" onclick="onClickedLine(event)"></canvas>
+      <div class="card-canvas">
+        <canvas onclick="onClickedLine(event)"></canvas>
+      </div>
 
-      <div class="text-switch-delete-add">
+      <div class="card-user-tools">
         <input type="text" oninput="drawText(this)" class="txt" />
-        <button onclick="onSwitchLine()" class="switch-btn">Switch line</button>
-        <button onclick="onAddLine()" class="add-line-btn">Add line</button>
-        <button class="delete-line">Delete</button>
-      </div>
+        <div class="text-switch-delete-add">
+          <button onclick="onSwitchLine()" class="btn-user switch-btn">
+            Switch line
+          </button>
+          <button onclick="onAddLine()" class="btn-user add-line-btn">
+            Add line
+          </button>
+          <button class="btn-user delete-line">Delete</button>
+        </div>
 
-      <div class="text-font-align">
-        <button onclick="changeFont(10)">increase font</button>
-        <button onclick="changeFont(-10)">decrease font</button>
-      </div>
+        <div class="text-font-align">
+          <button onclick="changeFont(10)" class="btn-user">
+            increase font
+          </button>
+          <button onclick="changeFont(-10)" class="btn-user">
+            decrease font
+          </button>
+          <button onclick="onAlign('start')" class="btn-user">
+            Align-Start
+          </button>
+          <button onclick="onAlign('center')" class="btn-user">
+            Align-Center
+          </button>
+          <button onclick="onAlign('end')" class="btn-user">Align-End</button>
+          <!-- <button onclick="onAlignStart()" class="btn-user">
+            Align-Start
+          </button> -->
+        </div>
 
-      <div class="text-color-impact">
-        <select name="" id="">
-          Impact
-          <option value=""></option>
-        </select>
-        <input type="color" class="stroke-color" />
-        <input type="color" class="shape-color" onchange="getColor()" />
-      </div>
+        <div class="text-color-impact">
+          <select name="" id="">
+            Impact
+            <option value=""></option>
+          </select>
+          <input type="color" class="stroke-color btn-user" />
+          <input
+            type="color"
+            class="shape-color btn-user"
+            onchange="getColor()"
+          />
+        </div>
 
-      <div class="add-stickers">
-        <button class="sticker"></button>
-        <button class="sticker"></button>
-        <button class="sticker"></button>
-        <button class="sticker"></button>
-      </div>
+        <div class="add-stickers">
+          <button class="sticker"></button>
+          <button class="sticker"></button>
+          <button class="sticker"></button>
+          <button class="sticker"></button>
+        </div>
 
-      <div class="meme-share-download">
-        <a onclick="downloadCanvas(this)" download="file-name">Download</a>
+        <div class="meme-share-download">
+          <a onclick="downloadCanvas(this)" download="file-name">Download</a>
+        </div>
       </div>
     </section>
 

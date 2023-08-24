@@ -2,6 +2,7 @@
 
 let gElCanvas;
 let gCtx;
+let gAlingnment;
 // let gCountChar = 0;
 // let gContinuedline;
 let gisClickedUp;
@@ -94,15 +95,12 @@ function changeFont(dxSize) {
 
 function drawText(elInput) {
   // gCountChar++;
-  let mesureWidthInput = gCtx.measureText(elInput.value).width;
-  if (mesureWidthInput + 100 >= gElCanvas.width) {
-    elInput.value = `${elInput.value}\n`;
-    setLineTxt(`${elInput.value}`);
-    // gContinuedline = elInput.value.substring(gCountChar);
-    // console.log(gContinuedline, 'gContinuedline');
-  } else {
-    setLineTxt(elInput.value);
-  }
+  //   for (var j = 0; j<lines.length; j++)
+  // c.fillText(lines[j], a, b + (j*lineheight) );
+  // let mesureWidthInput = gCtx.measureText(elInput.value).width;
+  // const line = getLine();
+  setLineTxt(elInput.value);
+
   renderMeme();
 }
 
@@ -174,10 +172,17 @@ function downloadCanvas(elLink) {
 //     }
 //   });
 // }
+
+function onAlign(str) {
+  gAlingnment = str;
+  renderMeme();
+}
+
 function renderLines() {
   const meme = getMeme();
 
   meme.lines.forEach((line, i) => {
+    const textWidth = gCtx.measureText(line.txt).width;
     gCtx.fillStyle = line.color;
     gCtx.font = `${line.size}px Arial`;
     if (getLineDrag()) {
@@ -186,66 +191,100 @@ function renderLines() {
       }
     } else {
       if (i === 1) {
-        setCoords(i, 100, gElCanvas.height - 100);
+        setCoords(i, 20, gElCanvas.height - 50);
       }
       if (i >= 2) {
-        setCoords(i, 100, gElCanvas.height / 2 - 5);
+        setCoords(i, 20, gElCanvas.height / 2);
       }
     }
 
     if (i === meme.selectedLineIdx) {
-      gCtx.strokeStyle = 'blue';
-      gCtx.lineWidth = 2;
-
-      const textWidth = gCtx.measureText(line.txt).width;
-      const hightFrame =
-        textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size + 5;
-
-      gCtx.strokeRect(line.x - 5, line.y - line.size, textWidth, hightFrame);
+      console.log('i-if', i);
+      console.log('meme.selectedLineIdx-if', meme.selectedLineIdx);
+      if (gAlingnment) {
+        gCtx.textAlign = gAlingnment;
+        if (gAlingnment === 'center') {
+          setCoords(i, gElCanvas.width / 2, line.y);
+          // gCtx.fillText(line.txt, gElCanvas.width / 2, line.y);
+        } else if (gAlingnment === 'start') {
+          setCoords(i, 50, line.y);
+          // gCtx.fillText(line.txt, 50, line.y);
+        } else if (gAlingnment === 'end') {
+          setCoords(i, gElCanvas.width - 50, line.y);
+          // gCtx.fillText(line.txt, gElCanvas.width - 50, line.y);
+        }
+      }
+    } else {
+      console.log('i', i);
+      console.log('meme.selectedLineIdx', meme.selectedLineIdx);
+      gCtx.textAlign = 'start'; // Reset alignment for non-selected lines
+      // gCtx.fillText(line.txt, line.x, line.y);
     }
+
+    // if (i === meme.selectedLineIdx) {
+    //   gCtx.strokeStyle = 'white';
+    //   gCtx.lineWidth = 4;
+    //   gCtx.textAlign = gAlingnment;
+    //   console.log(gAlingnment);
+
+    //   // gCtx.fillText(line.txt, line.x, line.y);
+
+    //   const hightFrame =
+    //     textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size + 5;
+
+    //   gCtx.strokeRect(line.x - 5, line.y - line.size, textWidth, hightFrame);
+    // }
 
     // Draw the text, handling wrapping if needed
-    const words = line.txt.split(' ');
-    let lineText = '';
-    let y = line.y;
+    // const words = line.txt.split(' ');
+    // console.log(words);
+    // let lineText = '';
+    // let y = line.y;
 
-    for (let word of words) {
-      const testLine = lineText + word + ' ';
-      const testWidth = gCtx.measureText(testLine).width;
+    // for (let word of words) {
+    //   const testLine = lineText + word + ' ';
+    //   const testWidth = gCtx.measureText(testLine).width;
 
-      if (testWidth > gElCanvas.width - 100) {
-        gCtx.fillText(lineText, line.x, y);
-        lineText = word + ' ';
-        y += line.size;
-      } else {
-        lineText = testLine;
-      }
-    }
-
-    gCtx.fillText(lineText, line.x, y);
+    //   if (testWidth > gElCanvas.width - 100) {
+    //     gCtx.fillText(lineText, line.x, y);
+    //     lineText = word + ' ';
+    //     y += line.size;
+    //   } else {
+    //     lineText = testLine;
+    //   }
+    // }
+    // gCtx.fillText(lineText, line.x, y);
+    // Split the line text into individual lines
+    // const lines = line.txt.split('\n');
+    // console.log(lines);
+    // // Loop through each line and draw it on the canvas
+    // for (let j = 0; j < lines.length; j++) {
+    //   gCtx.fillText(lines[j], line.x, line.y + j * line.size); // Draw each line
+    // }
+    gCtx.fillText(line.txt, line.x, line.y);
   });
 }
 
-function drawWrappedTextWithBorder(context, text, x, y, maxWidth) {
-  const words = text.split(' ');
-  let line = '';
+// function drawWrappedTextWithBorder(context, text, x, y, maxWidth) {
+//   const words = text.split(' ');
+//   let line = '';
 
-  for (let i = 0; i < words.length; i++) {
-    const testLine = line + words[i] + ' ';
-    const testWidth = context.measureText(testLine).width;
-    if (testWidth > maxWidth && i > 0) {
-      context.strokeText(line, x, y);
-      context.fillText(line, x, y);
-      line = words[i] + ' ';
-      y += fontSize; // Move to the next line
-    } else {
-      line = testLine;
-    }
-  }
+//   for (let i = 0; i < words.length; i++) {
+//     const testLine = line + words[i] + ' ';
+//     const testWidth = context.measureText(testLine).width;
+//     if (testWidth > maxWidth && i > 0) {
+//       context.strokeText(line, x, y);
+//       context.fillText(line, x, y);
+//       line = words[i] + ' ';
+//       y += fontSize; // Move to the next line
+//     } else {
+//       line = testLine;
+//     }
+//   }
 
-  context.strokeText(line, x, y);
-  context.fillText(line, x, y);
-}
+//   context.strokeText(line, x, y);
+//   context.fillText(line, x, y);
+// }
 
 function onAddLine() {
   const elInput = document.querySelector('.txt');
@@ -290,4 +329,10 @@ function onClickedLine(ev) {
 
 function onClickedUp() {
   gisClickedUp = true;
+}
+
+function coverCanvasWithImg(elImg) {
+  gElCanvas.height =
+    (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width;
+  gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height);
 }

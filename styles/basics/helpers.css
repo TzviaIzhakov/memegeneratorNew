@@ -50,6 +50,10 @@ canvas {
   border: 1px solid gray;
 }
 
-.hidden {
+.meme-editor.hidden {
+  display: none;
+}
+
+.gallery-user-tool.hidden {
   display: none;
 }
