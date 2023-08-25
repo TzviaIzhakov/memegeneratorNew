@@ -33,11 +33,13 @@ let gLineDrag;
 
 var selectedLineIdx = gMeme.selectedLineIdx;
 function getMeme() {
+  // console.log(gMeme, 'getMeme');
   return gMeme;
 }
 
 function addLine(txt, color, strokeColor) {
   const newLine = _createLine(txt, color, strokeColor);
+  console.log(gMeme, 'add-line');
   gMeme.lines.push(newLine);
   gMeme.selectedLineIdx = gMeme.lines.length - 1;
   selectedLineIdx = gMeme.selectedLineIdx;
@@ -94,6 +96,10 @@ function setLineTxt(newLine) {
   gMeme.lines[selectedLineIdx].txt = newLine;
 }
 
+function deleteLine() {
+  setLineTxt('');
+}
+
 function getColorMeme() {
   return gMeme.lines[selectedLineIdx].color;
 }
@@ -133,7 +139,9 @@ function setImg(id) {
   gMeme.selectedImgId = id;
   gMeme.lines = [];
   gMeme.selectedLineIdx = 0;
+  selectedLineIdx = 0;
   gMeme.lines[selectedLineIdx] = _createLine('', 'black', 'white', 'Arial');
+  console.log(gMeme, 'after clicked on another pic');
 }
 
 function setCoords(idx, x, y) {

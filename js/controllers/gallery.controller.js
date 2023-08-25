@@ -14,13 +14,13 @@ function renderGallery() {
 
 function onImgSelect(id) {
   setImg(id);
-  renderMeme();
   const elGallery = document.querySelector('.gallery-user-tool');
   const elMemeEditor = document.querySelector('.meme-editor');
   elGallery.classList.add('hidden');
   elMemeEditor.classList.remove('hidden');
   const elImg = document.querySelector(`.img-${id}`);
   coverCanvasWithImg(elImg);
+  renderMeme();
 }
 
 function onReturnGallery() {
