@@ -3,16 +3,21 @@
 let gElCanvas;
 let gCtx;
 let gAlingnment;
+let gIsDown;
 // let gCountChar = 0;
 // let gContinuedline;
 let gisClickedUp;
 let gStartPos;
 let gDx;
 let gDy;
+
 function onInit() {
   console.log('Hi');
+  gIsDown = false;
+  // gAlingnment = 'start';
   gElCanvas = document.querySelector('canvas');
   gCtx = gElCanvas.getContext('2d');
+  renderMeme();
   addMouseListeners();
 }
 
@@ -70,63 +75,47 @@ function renderMeme() {
   };
 }
 
+function onDownLine(px) {
+  gIsDown = true;
+  const line = getLine();
+  setCoords(getSelectedLine(), 20, line.y + px);
+  renderMeme();
+}
+
 function renderLines() {
   const meme = getMeme();
-
   meme.lines.forEach((line, i) => {
-    // const textWidth = gCtx.measureText(line.txt).width;
     gCtx.fillStyle = line.color;
-    gCtx.strokeStyle = line.strokeColor;
-    // console.log(line.color);
-    // console.log(line.strokeColor);
-    // console.log(line.strokeColor);
     gCtx.lineWidth = 4;
     const font = line.font;
     gCtx.font = `${line.size}px ${font}`;
-    gCtx.strokeText(line.txt, line.x, line.y);
-
-    // if (getLineDrag()) {
-    //   if (i === 1) {
-    //     moveLine(gDx, gDy);
-    //   }
-    // } else {
-    if (i === 1) {
-      setCoords(i, 20, gElCanvas.height - 50);
-    }
-    if (i >= 2) {
-      setCoords(i, 20, gElCanvas.height / 2);
-    }
-    // }
 
     if (i === meme.selectedLineIdx) {
-      // console.log('i-if', i);
-      // console.log('meme.selectedLineIdx-if', meme.selectedLineIdx);
-      if (gAlingnment) {
-        gCtx.textAlign = gAlingnment;
-        if (gAlingnment === 'center') {
-          setCoords(i, gElCanvas.width / 2, line.y);
-          // gCtx.fillText(line.txt, gElCanvas.width / 2, line.y);
-        } else if (gAlingnment === 'start') {
-          setCoords(i, 50, line.y);
-          // gCtx.fillText(line.txt, 50, line.y);
-        } else if (gAlingnment === 'end') {
-          setCoords(i, gElCanvas.width - 50, line.y);
-          // gCtx.fillText(line.txt, gElCanvas.width - 50, line.y);
-        }
-      }
-    } else {
-      // console.log('i', i);
-      // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
-      gCtx.textAlign = 'start'; // Reset alignment for non-selected lines
-      // gCtx.fillText(line.txt, line.x, line.y);
-    }
-
-    if (i === meme.selectedLineIdx) {
-      gCtx.strokeStyle = 'white';
+      gCtx.strokeStyle = 'brown';
       gCtx.strokeRect(20, line.y - 30, gElCanvas.width - 50, line.size + 5);
-      // const hightFrame =
-      //   textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size + 5;
     }
+
+    if (i === meme.selectedLineIdx) {
+      if (line.align) {
+        gCtx.textAlign = line.align;
+        if (line.align === 'center') {
+          setCoords(i, gElCanvas.width / 2, line.y);
+        } else if (line.align === 'start') {
+          setCoords(i, 50, line.y);
+        } else if (line.align === 'end') {
+          setCoords(i, gElCanvas.width - 50, line.y);
+        }
+
+        gCtx.strokeStyle = line.strokeColor;
+        gCtx.strokeText(line.txt, line.x, line.y);
+        gCtx.fillText(line.txt, line.x, line.y);
+        return;
+      }
+    }
+
+    gCtx.textAlign = line.align ? line.align : 'start';
+    gCtx.strokeStyle = line.strokeColor;
+    gCtx.strokeText(line.txt, line.x, line.y);
     gCtx.fillText(line.txt, line.x, line.y);
   });
 }
@@ -155,6 +144,7 @@ function drawText(elInput) {
 
 function onAlign(str) {
   gAlingnment = str;
+  setAlign(str);
   renderMeme();
 }
 
@@ -165,9 +155,10 @@ function onGetFont(val) {
 }
 
 function onAddLine() {
+  gIsDown = false;
   const elInput = document.querySelector('.txt');
   elInput.value = '';
-  addLine(elInput.value, 'black', 'white');
+  addLine(elInput.value, 'black', 'white', gElCanvas.width, gElCanvas.height);
   drawText(elInput);
   renderMeme();
 }
@@ -298,4 +289,18 @@ function downloadCanvas(elLink) {
 // }
 // function onClickedUp() {
 //   gisClickedUp = true;
+// }
+
+// if (getLineDrag()) {
+//   if (i === 1) {
+//     moveLine(gDx, gDy);
+//   }
+// } else {
+// if (!gIsDown) {
+//   if (i === 1) {
+//     setCoords(i, 20, gElCanvas.height - 50);
+//   }
+//   if (i >= 2) {
+//     setCoords(i, 20, gElCanvas.height / 2);
+//   }
 // }
