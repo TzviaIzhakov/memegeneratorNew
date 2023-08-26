@@ -36,3 +36,13 @@ function onReturnGallery() {
 function toggleMenu() {
   document.body.classList.toggle('menu-open');
 }
+
+function onDisplayModal() {
+  const elBackDrop = document.querySelector('.backdrop');
+  elBackDrop.classList.remove('hidden');
+}
+
+function onCloseModal() {
+  const elBackDrop = document.querySelector('.backdrop');
+  elBackDrop.classList.add('hidden');
+}

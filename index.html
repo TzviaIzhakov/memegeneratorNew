@@ -17,10 +17,10 @@
         <div class="logo">LOGO</div>
         <ul class="main-nav clean-list grid flow-column">
           <li><a href="#" onclick="onReturnGallery()">Gallery</a></li>
-          <li><a href="#">About</a></li>
+          <li><a href="#" onclick="onDisplayModal()">About</a></li>
         </ul>
       </nav>
-      <button class="btn-toggle" onclick="toggleMenu()">🍔</button>
+      <button class="btn-toggle" onclick="toggleMenu()">☰</button>
     </header>
 
     <section class="gallery-user-tool">
@@ -110,6 +110,17 @@
           >
         </div>
       </div>
+    </section>
+
+    <section class="backdrop hidden">
+      <section class="modal">
+        <p class="desc">
+          Welcome to MEME GENERATOR! you can download your memes to your
+          computer and show it to your realtives.
+        </p>
+        <img src="img/start.png" alt="" class="meme-pic" />
+        <button class="close" onclick="onCloseModal()">Close</button>
+      </section>
     </section>
 
     <script

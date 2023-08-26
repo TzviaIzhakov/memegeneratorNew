@@ -8,14 +8,11 @@
 @import url('basics/helpers.css');
 
 /* COMPONENTS */
-/* @import url("components/logo.css"); */
+
 @import url('components/main-header.css');
 @import url('components/user-tool-gallery.css');
 @import url('components/meme-editor.css');
-/* @import url("components/main-container.css"); */
-/* @import url("components/card.css"); */
-/* @import url("components/newsletter.css");*/
-/* @import url("components/main-screen.css"); */
+@import url('components/modal.css');
 
 /* MEDIA QUERIES */
 @import url('setup/mq.css');
