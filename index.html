@@ -8,7 +8,9 @@
   </head>
 
   <body onload="onInit()" class="main-layout">
+    <div class="main-screen" onclick="toggleMenu()"></div>
     <header class="main-header main-layout full">
+      <!-- <div class="logo hidden">LOGO</div> -->
       <nav
         class="main-nav-container grid space-between align-center flow-column"
       >
@@ -18,10 +20,11 @@
           <li><a href="#">About</a></li>
         </ul>
       </nav>
+      <button class="btn-toggle" onclick="toggleMenu()">🍔</button>
     </header>
 
     <section class="gallery-user-tool">
-      <section class="user-tool flex space-between align-center">
+      <!-- <section class="user-tool flex space-between align-center">
         <input type="text" class="search-meme" />
         <div class="memes-tag">
           <span>Funny</span>
@@ -32,7 +35,7 @@
           <span>Smile</span>
         </div>
         <a class="btn-more-list">More</a>
-      </section>
+      </section> -->
 
       <section class="gallery"></section>
     </section>
@@ -46,43 +49,39 @@
         <input type="text" oninput="drawText(this)" class="txt" />
         <div class="text-switch-delete-add">
           <button onclick="onDownLine(10)" class="btn-user down-line-btn">
-            Down
+            <i class="fa-solid fa-arrow-down"></i>
           </button>
           <button onclick="onDownLine(-10)" class="btn-user up-line-btn">
-            Up
+            <i class="fa-solid fa-arrow-up"></i>
           </button>
           <button onclick="onSwitchLine()" class="btn-user switch-btn">
-            Switch line
+            <img src="img/arrow-up-down.svg" alt="" />
           </button>
           <button onclick="onAddLine()" class="btn-user add-line-btn">
-            Add line
+            <i class="fa-solid fa-plus"></i>
           </button>
           <button onclick="onDeleteLine()" class="btn-user delete-line">
-            Delete
+            <i class="fa-solid fa-trash"></i>
           </button>
         </div>
 
-        <div class="text-font-align">
+        <div class="text-font-align-color-impact">
           <button onclick="changeFont(10)" class="btn-user">
-            increase font
+            <img src="img/increase font - icon.png" />
           </button>
           <button onclick="changeFont(-10)" class="btn-user">
-            decrease font
+            <img src="img/decrease font - icon.png" />
           </button>
           <button onclick="onAlign('start')" class="btn-user">
-            Align-Start
+            <img src="img/Rectangle_4_copie_3.svg" alt="" />
           </button>
           <button onclick="onAlign('center')" class="btn-user">
-            Align-Center
+            <img src="img/Rectangle_4_copie_4.svg" alt="" />
           </button>
-          <button onclick="onAlign('end')" class="btn-user">Align-End</button>
-          <!-- <button onclick="onAlignStart()" class="btn-user">
-            Align-Start
-          </button> -->
-        </div>
-
-        <div class="text-color-impact">
-          <select name="" id="" onchange="onGetFont(this.value)">
+          <button onclick="onAlign('end')" class="btn-user">
+            <img src="img/Rectangle_4_copie_5.svg" alt="" />
+          </button>
+          <select name="" id="" onchange="onGetFont(this.value)" class="impact">
             <option value="Arial">Impact</option>
             <option value="cursive">Cursive</option>
             <option value="monospace">Monospace</option>
@@ -101,20 +100,22 @@
           />
         </div>
 
-        <div class="add-stickers">
-          <button class="sticker"></button>
-          <button class="sticker"></button>
-          <button class="sticker"></button>
-          <button class="sticker"></button>
-        </div>
-
         <div class="meme-share-download">
-          <a onclick="downloadCanvas(this)" download="file-name">Download</a>
+          <a
+            class="download"
+            onclick="downloadCanvas(this)"
+            download="file-name"
+          >
+            <i class="fa-solid fa-download"></i>Download</a
+          >
         </div>
       </div>
     </section>
 
-    <!-- <script src="js/main.js"></script> -->
+    <script
+      src="https://kit.fontawesome.com/8ec45c26f0.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="js/services/meme.service.js"></script>
     <script src="js/controllers/meme.controller.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>

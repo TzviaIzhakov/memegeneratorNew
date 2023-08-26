@@ -1,5 +1,6 @@
 .gallery-user-tool {
   background-color: #383b42;
+  padding: 20px;
 }
 
 .user-tool {
@@ -30,6 +31,4 @@
 }
 .gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
 }

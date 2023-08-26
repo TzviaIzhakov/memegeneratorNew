@@ -14,6 +14,30 @@
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  justify-content: space-between;
+  background-color: rgb(235, 238, 243, 0.11);
+  border-radius: 30px;
+  padding: 1rem;
+}
+
+.text-switch-delete-add {
+  display: flex;
+  gap: 30px;
+}
+
+.text-switch-delete-add > * {
+  height: 40px;
+  width: 40px;
+  font-size: 1em;
+  color: #ebeef3;
+}
+
+.down-line-btn {
+  background-color: #f05036;
+}
+
+.up-line-btn {
+  background-color: #034a0d;
 }
 
 .txt {
@@ -23,9 +47,31 @@
 }
 
 .btn-user {
-  padding: 13px 13px;
+  border-style: none;
+  border-radius: 10px;
+  box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55),
+    inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  cursor: pointer;
 }
 
+.text-font-align-color-impact {
+  display: grid;
+  grid-template-columns: repeat(5, 40px);
+  grid-template-rows: repeat(2, 40px);
+  gap: 34px;
+  padding: 11px 17px;
+  border-radius: 15px;
+}
+
+.impact {
+  grid-column: 1/4;
+  font-family: poppins;
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 10px;
+}
 .btn-user.switch-btn {
   background: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }
@@ -43,6 +89,12 @@
   );
 }
 
-.text-color-impact {
+.text-font-align-color-impact {
   background-color: #19a59f;
+}
+
+.download {
+  background-color: #8f44bb;
+  border-radius: 15px;
+  padding: 5px 17px;
 }

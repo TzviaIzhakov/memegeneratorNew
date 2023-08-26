@@ -32,3 +32,7 @@ function onReturnGallery() {
   elMemeEditor.classList.add('hidden');
   elInput.value = '';
 }
+
+function toggleMenu() {
+  document.body.classList.toggle('menu-open');
+}

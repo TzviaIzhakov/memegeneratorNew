@@ -2,11 +2,8 @@
 
 let gElCanvas;
 let gCtx;
-let gAlingnment;
 let gIsDown;
-// let gCountChar = 0;
-// let gContinuedline;
-let gisClickedUp;
+let gSwitchLine;
 let gStartPos;
 let gDx;
 let gDy;
@@ -14,9 +11,10 @@ let gDy;
 function onInit() {
   console.log('Hi');
   gIsDown = false;
-  // gAlingnment = 'start';
+  gSwitchLine = false;
   gElCanvas = document.querySelector('canvas');
   gCtx = gElCanvas.getContext('2d');
+
   renderMeme();
   addMouseListeners();
 }
@@ -26,6 +24,7 @@ function addMouseListeners() {
   gElCanvas.addEventListener('mousemove', onMove);
   gElCanvas.addEventListener('mouseup', onUp);
 }
+
 function onDown(ev) {
   const pos = getEvPos(ev);
   if (!onClickedLine(ev)) {
@@ -83,6 +82,7 @@ function onDownLine(px) {
 }
 
 function renderLines() {
+  const elInput = document.querySelector('.txt');
   const meme = getMeme();
   meme.lines.forEach((line, i) => {
     gCtx.fillStyle = line.color;
@@ -90,7 +90,7 @@ function renderLines() {
     const font = line.font;
     gCtx.font = `${line.size}px ${font}`;
 
-    if (i === meme.selectedLineIdx) {
+    if (i === meme.selectedLineIdx && !elInput.value) {
       gCtx.strokeStyle = 'brown';
       gCtx.strokeRect(20, line.y - 30, gElCanvas.width - 50, line.size + 5);
     }
@@ -143,7 +143,6 @@ function drawText(elInput) {
 }
 
 function onAlign(str) {
-  gAlingnment = str;
   setAlign(str);
   renderMeme();
 }
@@ -171,6 +170,7 @@ function onDeleteLine() {
 }
 
 function onSwitchLine() {
+  gSwitchLine = true;
   const elInput = document.querySelector('.txt');
   elInput.value = '';
   switchLine();

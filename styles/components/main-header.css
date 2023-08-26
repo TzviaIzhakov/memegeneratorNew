@@ -6,6 +6,7 @@
   );
   border-radius: 37px;
   margin: 1rem;
+  margin-block-end: 2rem;
   height: var(--headerHeight);
 }
 
@@ -31,3 +32,7 @@
   background-color: var(--clrPrimary);
   border-radius: 20px;
 }
+
+/* .logo-pic {
+  grid-column: 1;
+} */
