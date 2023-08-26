@@ -15,6 +15,7 @@
   }
   .modal img {
     margin-block-start: -50px;
+    grid-column: 1 !important;
   }
   .modal .close {
     margin-block-start: 5px;
@@ -31,22 +32,30 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+
   .meme-editor {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
+    grid-template-columns: 1fr;
   }
+
+  .card-user-tools {
+    grid-column: 1;
+  }
+
+  .card-canvas {
+    place-self: center;
+  }
+
   .btn-toggle {
     width: min-content;
-    grid-column: 3;
+    grid-column: 3 !important;
     height: min-content;
     place-self: center;
   }
+
   .main-header .main-nav {
     gap: 0;
   }
+
   .main-nav {
     position: fixed;
     top: 0;
@@ -107,6 +116,15 @@
 
 /* SMALL */
 @media (min-width: 600px) {
+  .meme-editor {
+    grid-template-columns: 1fr;
+  }
+  .card-user-tools {
+    grid-column: 1;
+  }
+  .card-canvas {
+    place-self: center;
+  }
   .btn-toggle {
     display: none;
   }
@@ -122,23 +140,16 @@
   }
 
   .meme-editor {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 10px;
-    justify-content: center;
-    align-items: center;
   }
-  /* .gallery-user-tool {
-    grid-template-columns: 1fr 1fr 1fr;
-  } */
+
   .main-layout > *.full {
     grid-column: 1/-1;
   }
   .main-layout > *:not(.full) {
     grid-column: 2;
   }
-
-  /* modal */
 }
 
 /* MEDIUM */
@@ -158,6 +169,12 @@
   .meme-editor {
     display: grid;
     grid-template-columns: 1fr 20px 1fr;
+  }
+  .card-user-tools {
+    grid-column: 3;
+  }
+  canvas {
+    place-self: center;
   }
 }
 

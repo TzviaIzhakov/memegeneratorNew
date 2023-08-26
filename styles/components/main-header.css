@@ -28,11 +28,11 @@
 
 .main-header .main-nav a:hover {
   color: var(--clrSecondary);
-  /* box-shadow: 0 3px 6px 1px var(--clrPrimary); */
   background-color: var(--clrPrimary);
   border-radius: 20px;
 }
 
-/* .logo-pic {
-  grid-column: 1;
-} */
+.logo img {
+  display: block;
+  height: 30px;
+}
