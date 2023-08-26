@@ -3,15 +3,21 @@
   body {
     overflow-x: hidden;
   }
-  .close-modal {
-    display: block;
-  }
   .backdrop {
     height: 100%;
   }
   .modal {
     height: 100%;
     width: 100%;
+  }
+  .modal p {
+    margin-block-start: 68px;
+  }
+  .modal img {
+    margin-block-start: -50px;
+  }
+  .modal .close {
+    margin-block-start: 5px;
   }
   .main-header {
     position: sticky;
@@ -101,9 +107,6 @@
 
 /* SMALL */
 @media (min-width: 600px) {
-  .close-modal {
-    display: none;
-  }
   .btn-toggle {
     display: none;
   }

@@ -3,7 +3,6 @@
 let gElCanvas;
 let gCtx;
 let gIsDown;
-let gSwitchLine;
 let gStartPos;
 let gDx;
 let gDy;
@@ -11,7 +10,6 @@ let gDy;
 function onInit() {
   console.log('Hi');
   gIsDown = false;
-  gSwitchLine = false;
   gElCanvas = document.querySelector('canvas');
   gCtx = gElCanvas.getContext('2d');
 
@@ -27,6 +25,7 @@ function addMouseListeners() {
 
 function onDown(ev) {
   const pos = getEvPos(ev);
+  console.log(pos, 'click');
   if (!onClickedLine(ev)) {
     return;
   }
@@ -41,6 +40,7 @@ function onMove(ev) {
   console.log('Moving the line');
 
   const pos = getEvPos(ev);
+  console.log(pos, 'move');
   // Calc the delta, the diff we moved
   gDx = pos.x - gStartPos.x;
   gDy = pos.y - gStartPos.y;
@@ -64,7 +64,6 @@ function getEvPos(ev) {
 
 function renderMeme() {
   const elImg = new Image();
-  const meme = getMeme();
   const urlMeme = getMemeUrl();
   elImg.src = `${urlMeme}`;
 
@@ -105,7 +104,7 @@ function renderLines() {
         } else if (line.align === 'end') {
           setCoords(i, gElCanvas.width - 50, line.y);
         }
-
+        console.log(line.x, line.y, 'pos');
         gCtx.strokeStyle = line.strokeColor;
         gCtx.strokeText(line.txt, line.x, line.y);
         gCtx.fillText(line.txt, line.x, line.y);
@@ -133,6 +132,8 @@ function getStrokeColor() {
 }
 
 function changeFont(dxSize) {
+  gChangeFont = true;
+  setChageFont(true);
   setFontSize(dxSize);
   renderMeme();
 }
@@ -170,7 +171,6 @@ function onDeleteLine() {
 }
 
 function onSwitchLine() {
-  gSwitchLine = true;
   const elInput = document.querySelector('.txt');
   elInput.value = '';
   switchLine();
@@ -183,10 +183,6 @@ function onClickedLine(ev) {
 
   const clickedLine = getMeme().lines.find((line, i) => {
     console.log(offsetX, offsetY);
-    // const textWidth = gCtx.measureText(line.txt).width;
-    // const hightFrame =
-    //   textWidth + 100 >= gElCanvas.width ? line.size + 100 : line.size;
-    // gCtx.strokeRect(20, line.y - 30, gElCanvas.width - 50, line.size + 5);
     const selected =
       offsetX >= 20 &&
       offsetX <= 20 + gElCanvas.width - 50 &&
@@ -194,17 +190,14 @@ function onClickedLine(ev) {
       offsetY <= line.size + 5 + line.y;
     console.log(line.y, 'line.y');
     console.log(line.size, 'line.size');
-    // const s =
-    //   offsetX >= line.x - 5 &&
-    //   offsetX <= line.x + textWidth &&
-    //   offsetY >= line.y - line.size &&
-    //   offsetY <= hightFrame + line.y;
+
     if (selected) {
       setSelectedLine(i);
       const elInput = document.querySelector('.txt');
       elInput.value = meme.lines[getSelectedLine()].txt;
       renderMeme();
     }
+
     return selected;
   });
 
@@ -227,80 +220,3 @@ function downloadCanvas(elLink) {
   elLink.href = dataUrl;
   elLink.download = 'my-meme';
 }
-// function drawText(elInput) {
-//   const maxTextWidth = gElCanvas.width - 100; // Adjust the threshold as needed
-//   const words = elInput.value.split(' ');
-//   let lines = [];
-//   let currentLine = '';
-
-//   for (const word of words) {
-//     const testLine = currentLine ? currentLine + ' ' + word : word;
-//     const testWidth = gCtx.measureText(testLine).width;
-
-//     if (testWidth <= maxTextWidth) {
-//       currentLine = testLine;
-//     } else {
-//       lines.push(currentLine);
-//       currentLine = word;
-//     }
-//   }
-
-//   lines.push(currentLine);
-//   const wrappedText = lines.join('\n');
-//   setLineTxt(wrappedText);
-
-//   renderMeme();
-// }
-
-// function renderLines() {
-//   const meme = getMeme();
-//   const elInput = document.querySelector('.txt');
-//   console.log(gCtx.measureText(elInput.value).width);
-//   meme.lines.forEach((line, i) => {
-//     gCtx.fillStyle = line.color;
-//     gCtx.font = `${line.size}px Arial`;
-//     if (i == 1) {
-//       setCoords(i, 100, gElCanvas.height - 100);
-//     }
-//     if (i >= 2) {
-//       setCoords(i, 100, gElCanvas.height / 2 - 5);
-//     }
-
-//     if (i === meme.selectedLineIdx) {
-//       gCtx.strokeStyle = 'blue'; // Set the frame color
-//       gCtx.lineWidth = 2;
-//       let mesureWidthInput = gCtx.measureText(elInput.value).width;
-//       let size = line.size;
-
-//       const hightFrame =
-//         mesureWidthInput + 100 >= gElCanvas.width ? (size += 100) : size + 5;
-//       console.log(hightFrame);
-//       gCtx.strokeRect(
-//         line.x - 5,
-//         line.y - line.size,
-//         mesureWidthInput,
-//         hightFrame
-//       );
-//       console.log(line.txt);
-//       gCtx.fillText(line.txt, line.x, line.y);
-//       // drawWrappedText(gCtx, line.txt, line.x, line.y, gElCanvas.width);
-//     }
-//   });
-// }
-// function onClickedUp() {
-//   gisClickedUp = true;
-// }
-
-// if (getLineDrag()) {
-//   if (i === 1) {
-//     moveLine(gDx, gDy);
-//   }
-// } else {
-// if (!gIsDown) {
-//   if (i === 1) {
-//     setCoords(i, 20, gElCanvas.height - 50);
-//   }
-//   if (i >= 2) {
-//     setCoords(i, 20, gElCanvas.height / 2);
-//   }
-// }

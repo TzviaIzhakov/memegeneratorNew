@@ -25,25 +25,23 @@ let gNextId = 0;
 let gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
-  lines: [
-    // _createLine('I sometimes eat Falafel', 'black'),
-    // _createLine('I love to eat Hamburger', 'red'),
-  ],
+  lines: [],
 };
 
 let gLineDrag;
+let gChangeFont;
 let gWidth;
 let gHeight;
+let selectedLineIdx = gMeme.selectedLineIdx;
 
-var selectedLineIdx = gMeme.selectedLineIdx;
 function getMeme() {
-  // console.log(gMeme, 'getMeme');
   return gMeme;
 }
 
 function addLine(txt, color, strokeColor, width, height) {
   gWidth = width;
   gHeight = height;
+  gChangeFont = false;
   const newLine = _createLine(txt, color, strokeColor);
   console.log(gMeme, 'add-line');
   gMeme.lines.push(newLine);
@@ -94,6 +92,7 @@ function switchLine() {
     selectedLineIdx = 0;
     gMeme.selectedLineIdx = selectedLineIdx;
     console.log('selectedLineIdx', gMeme.selectedLineIdx);
+    gChangeFont = false;
     return;
   }
 
@@ -116,7 +115,7 @@ function setLineTxt(newLine) {
 }
 
 function deleteLine() {
-  setLineTxt('');
+  gMeme.lines.splice(selectedLineIdx, 1);
 }
 
 function getColorMeme() {
@@ -159,8 +158,14 @@ function setImg(id) {
   gMeme.selectedLineIdx = 0;
   selectedLineIdx = 0;
   gNextId = 0;
-  gMeme.lines[selectedLineIdx] = _createLine('', 'black', 'white', 'Arial');
-
+  gMeme.lines[selectedLineIdx] = _createLine(
+    'Enter text',
+    'black',
+    'white',
+    'Arial'
+  );
+  gChangeFont = false;
+  gLineDrag = false;
   console.log(gMeme, 'after clicked on another pic');
 }
 
@@ -169,13 +174,22 @@ function setCoords(idx, x, y) {
   gMeme.lines[idx].y = y;
 }
 
+function getLineDrag() {
+  return gLineDrag;
+}
+
 function setLineDrag(boolean) {
   gLineDrag = boolean;
   gMeme.selectedLineIdx = selectedLineIdx;
 }
 
-function getLineDrag() {
-  return gLineDrag;
+function getChangeFont() {
+  return gChangeFont;
+}
+
+function setChageFont(boolean) {
+  gChangeFont = boolean;
+  gMeme.selectedLineIdx = selectedLineIdx;
 }
 
 function moveLine(dx, dy) {
