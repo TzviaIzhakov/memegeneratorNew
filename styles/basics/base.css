@@ -48,8 +48,3 @@ a {
   color: var(--clrSecondary);
   border-color: var(--clrSecondary);
 }
-
-/* round */
-.btn.round {
-  border-radius: 2em;
-}

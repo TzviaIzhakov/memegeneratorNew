@@ -5,6 +5,19 @@
 
 .user-tool {
   margin-block-end: 50px;
+  gap: 100px;
+}
+
+.keywords {
+  border-radius: 28px;
+  background-color: rgb(216, 217, 218, 0.7);
+  padding: 1em 2em;
+  border-style: none;
+}
+
+.fa-share-nodes,
+.fa-download {
+  margin-inline-end: 1em;
 }
 
 .gallery-user-tool .user-tool .search-meme {
@@ -15,6 +28,20 @@
 .gallery-user-tool .user-tool .memes-tag {
   background-color: rgb(254, 254, 254, 0.4);
   border-radius: 25px;
+}
+
+.btn-flexible {
+  background-color: rgb(82, 109, 130, 0.9);
+  border-radius: 50px;
+  padding: 0.3em 2em;
+  color: azure;
+  border-style: none;
+  font-family: poppins;
+  font-size: 1em;
+  cursor: pointer;
+}
+.btn-flexible:hover {
+  background-color: rgb(82, 109, 130, 0.5);
 }
 
 .btn-more-list {

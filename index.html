@@ -19,7 +19,7 @@
         <ul class="main-nav clean-list grid flow-column">
           <li><a href="#" onclick="onReturnGallery()">Gallery</a></li>
           <li><a href="#" onclick="onDisplayModal()">About</a></li>
-          <li><a href="#" onclick="onGetFlexible()">I'm Flexible</a></li>
+          <!-- <li><a href="#" onclick="onGetFlexible()">I'm Flexible</a></li> -->
         </ul>
       </nav>
       <button class="btn-toggle" onclick="toggleMenu()">☰</button>
@@ -38,6 +38,25 @@
         </div>
         <a class="btn-more-list">More</a>
       </section> -->
+      <section class="user-tool">
+        <button class="btn-flexible" onclick="onGetFlexible()">
+          I'm Flexible
+        </button>
+        <input
+          class="keywords"
+          list="keywords"
+          name="search"
+          oninput="onSetFilterBy({keyword: this.value})"
+        />
+        <datalist id="keywords">
+          <option value="Funny"></option>
+          <option value="Animal"></option>
+          <option value="Men"></option>
+          <option value="Women"></option>
+          <option value="Comic"></option>
+          <option value="Smile"></option>
+        </datalist>
+      </section>
 
       <section class="gallery"></section>
     </section>
@@ -110,6 +129,9 @@
           >
             <i class="fa-solid fa-download"></i>Download</a
           >
+          <a class="share" onclick="onUploadImg()"
+            ><i class="fa-solid fa-share-nodes"></i>Share</a
+          >
         </div>
       </div>
     </section>
@@ -130,6 +152,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/services/util.service.js"></script>
+    <script src="js/sharing-on-facebook.js"></script>
+    <script src="js/upload-from-local.js"></script>
     <script src="js/services/meme.service.js"></script>
     <script src="js/controllers/meme.controller.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>

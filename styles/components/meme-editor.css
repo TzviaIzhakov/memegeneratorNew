@@ -39,6 +39,11 @@
   background-color: #034a0d;
 }
 
+.user-tool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .txt {
   border-radius: 28px;
   background-color: #ebeef3;
@@ -92,8 +97,14 @@
   background-color: #19a59f;
 }
 
-.download {
-  background-color: #8f44bb;
+.download,
+.share {
   border-radius: 15px;
   padding: 5px 17px;
+}
+.download {
+  background-color: #8f44bb;
+}
+.share {
+  background-color: #1e7cd3;
 }

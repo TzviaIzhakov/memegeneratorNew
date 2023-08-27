@@ -2,6 +2,14 @@
 
 renderGallery();
 
+function onSetFilterBy(filterBy) {
+  // { minSpeed: 74 }
+  console.log('filterBy', filterBy);
+  filterBy = setMemeFilter(filterBy);
+  console.log(filterBy);
+  renderGallery();
+}
+
 function renderGallery() {
   const imgs = getImgs();
   const strHtml = imgs.map((img) => {

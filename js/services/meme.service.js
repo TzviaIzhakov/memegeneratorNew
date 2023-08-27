@@ -38,12 +38,31 @@ let gLinesFlexible = [
 let gLineDrag;
 let gChangeFont;
 let gIsFlexible;
+let gFilterBy = { keyword: '' };
 let gWidth;
 let gHeight;
 let selectedLineIdx = gMeme.selectedLineIdx;
 
 function getMeme() {
   return gMeme;
+}
+
+function getImgs() {
+  const filteredImgs = [];
+  const imgs = gImgs.slice();
+  imgs.forEach((img) => {
+    img.keywords.forEach((key) => {
+      if (key.includes(gFilterBy.keyword.toLowerCase())) {
+        filteredImgs.push(img);
+      }
+    });
+  });
+  return gFilterBy.keyword === '' ? gImgs : filteredImgs;
+}
+
+function setMemeFilter(filterBy = {}) {
+  if (filterBy.keyword !== undefined) gFilterBy.keyword = filterBy.keyword;
+  return gFilterBy;
 }
 
 function getRandImgId() {
@@ -96,10 +115,6 @@ function _createLine(
     line.y = gHeight / 2;
   }
   return line;
-}
-
-function getImgs() {
-  return gImgs;
 }
 
 function switchLine() {
