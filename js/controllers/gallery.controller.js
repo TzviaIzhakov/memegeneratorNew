@@ -23,6 +23,12 @@ function onImgSelect(id) {
   renderMeme();
 }
 
+function onGetFlexible() {
+  const id = getRandImgId();
+  setFlexible(true);
+  onImgSelect(id);
+}
+
 function onReturnGallery() {
   const elGallery = document.querySelector('.gallery-user-tool');
   const elMemeEditor = document.querySelector('.meme-editor');
@@ -31,6 +37,7 @@ function onReturnGallery() {
   elGallery.classList.remove('hidden');
   elMemeEditor.classList.add('hidden');
   elInput.value = '';
+  setFlexible(false);
 }
 
 function toggleMenu() {

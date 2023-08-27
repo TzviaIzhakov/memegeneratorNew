@@ -28,14 +28,30 @@ let gMeme = {
   lines: [],
 };
 
+let gLinesFlexible = [
+  'What was was',
+  'What is this',
+  'Hello Drama',
+  'What will be will be',
+];
+
 let gLineDrag;
 let gChangeFont;
+let gIsFlexible;
 let gWidth;
 let gHeight;
 let selectedLineIdx = gMeme.selectedLineIdx;
 
 function getMeme() {
   return gMeme;
+}
+
+function getRandImgId() {
+  return getRandomInt(0, gImgs.length);
+}
+
+function setFlexible(boolean) {
+  gIsFlexible = boolean;
 }
 
 function addLine(txt, color, strokeColor, width, height) {
@@ -48,7 +64,6 @@ function addLine(txt, color, strokeColor, width, height) {
   gMeme.selectedLineIdx = gMeme.lines.length - 1;
   selectedLineIdx = gMeme.selectedLineIdx;
   console.log(selectedLineIdx, 'selectedLineIdx');
-  // _saveBooks();
 }
 
 function _createLine(
@@ -56,7 +71,7 @@ function _createLine(
   color = 'black',
   strokeColor = 'white',
   font = 'Arial',
-  x = 50,
+  x = 20,
   y = 50
 ) {
   const line = {
@@ -158,12 +173,21 @@ function setImg(id) {
   gMeme.selectedLineIdx = 0;
   selectedLineIdx = 0;
   gNextId = 0;
-  gMeme.lines[selectedLineIdx] = _createLine(
-    'Enter text',
-    'black',
-    'white',
-    'Arial'
-  );
+  if (!gIsFlexible) {
+    gMeme.lines[selectedLineIdx] = _createLine(
+      'Enter text',
+      'black',
+      'white',
+      'Arial'
+    );
+  } else {
+    gMeme.lines[selectedLineIdx] = _createLine(
+      gLinesFlexible[getRandomInt(0, gLinesFlexible.length)],
+      'black',
+      'white',
+      'Arial'
+    );
+  }
   gChangeFont = false;
   gLineDrag = false;
   console.log(gMeme, 'after clicked on another pic');
